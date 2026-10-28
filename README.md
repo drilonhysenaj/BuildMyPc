@@ -22,8 +22,7 @@ përputhshmërinë, llogarit çmimin dhe lejon ruajtjen ose porositjen.
 - Ambienti: Docker Compose
 
 ## Përparimi
-- [ ] Hapi 1 — Planifikimi dhe GitHub
-- [ ] Hapi 2 — Produkti i parë në ekran
+- [x] Hapi 2 — Produkti i parë në ekran
 - [ ] Hapi 3 — Katalogu
 - [ ] Hapi 4 — Login dhe Admin
 - [ ] Hapi 5 — Ndërtuesi i PC-së

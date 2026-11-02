@@ -21,6 +21,39 @@ përputhshmërinë, llogarit çmimin dhe lejon ruajtjen ose porositjen.
 - Siguria: JWT + role (User, Admin)
 - Ambienti: Docker Compose
 
+## Si ta nisësh projektin lokalisht
+
+### 1. Databaza (SQL Server në Docker)
+
+Krijimi i kontejnerit, vetëm herën e parë (në Ubuntu/WSL):
+
+```bash
+docker run -d \
+  --name buildmypc_sqlserver \
+  -e "ACCEPT_EULA=Y" \
+  -e "MSSQL_SA_PASSWORD=BuildMyPc123." \
+  -e "MSSQL_PID=Developer" \
+  -p 1436:1433 \
+  -v buildmypc_sqlserver_data:/var/opt/mssql \
+  mcr.microsoft.com/mssql/server:2022-latest
+```
+
+Nisja dhe ndalja, herëve tjera (nga PowerShell):
+
+```bash
+wsl -d Ubuntu docker start buildmypc_sqlserver
+wsl -d Ubuntu docker stop buildmypc_sqlserver
+```
+
+### 2. Backend-i
+
+```bash
+cd backend/BuildMyPcApi
+dotnet run
+```
+
+Swagger: http://localhost:5126/swagger
+
 ## Përparimi
 - [x] Hapi 2 — Produkti i parë në ekran
 - [ ] Hapi 3 — Katalogu

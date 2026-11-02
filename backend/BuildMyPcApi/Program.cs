@@ -1,3 +1,5 @@
+using BuildMyPcApi.Database;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +20,11 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
+
+var connectionString = builder.Configuration.GetConnectionString("BuildMyPcApiDatabase");
+
+builder.Services.AddDbContext<BuildMyPcDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 var app = builder.Build();
 

@@ -23,7 +23,7 @@ builder.Services.AddControllers();
 
 var connectionString = builder.Configuration.GetConnectionString("BuildMyPcApiDatabase");
 
-builder.Services.AddDbContext<BuildMyPcDbContext>(options =>
+builder.Services/*punson stafin per rolet qe ju takojn(dependency injection)*/.AddDbContext<BuildMyPcDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 var app = builder.Build();
@@ -34,10 +34,10 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "BuildMyPcApi v1"));
 }
 
-app.UseHttpsRedirection();
+app.UseHttpsRedirection();//dera e sigurt
 
-app.UseAuthorization();
+app.UseAuthorization();//roja
 
-app.MapControllers();
+app.MapControllers();//kamarjeri
 
-app.Run();
+app.Run();//hapja e deres per musafir me hi me perdor lokalin

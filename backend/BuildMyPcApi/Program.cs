@@ -21,6 +21,13 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowFrontend", policy =>
+        policy.WithOrigins("http://localhost:5173")
+              .AllowAnyMethod()
+              .AllowAnyHeader());
+});
 
 builder.Services.AddScoped<IProductService, ProductService>();
 
@@ -38,6 +45,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();//dera e sigurt
+
+app.UseCors("AllowFrontend");
 
 app.UseAuthorization();//roja
 

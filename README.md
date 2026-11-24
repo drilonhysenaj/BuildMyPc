@@ -15,9 +15,9 @@ përputhshmërinë, llogarit çmimin dhe lejon ruajtjen ose porositjen.
 - Menaxhon porositë dhe statuset e tyre
 
 ## Teknologjitë
-- Frontend: React
-- Backend: ASP.NET Core Web API (.NET 10)
-- Databaza: SQL Server + EF Core
+- Frontend: React (Vite)
+- Backend: ASP.NET Core Web API (.NET 10) + Swagger
+- Databaza: SQL Server (Docker) + EF Core
 - Siguria: JWT + role (User, Admin)
 - Ambienti: Docker Compose
 
@@ -38,26 +38,37 @@ docker run -d \
   mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-Nisja dhe ndalja, herëve tjera (nga PowerShell):
+Herëve tjera, në një terminal Ubuntu që mbetet i hapur:
 
 ```bash
-wsl -d Ubuntu docker start buildmypc_sqlserver
-wsl -d Ubuntu docker stop buildmypc_sqlserver
+docker start buildmypc_sqlserver
 ```
 
 ### 2. Backend-i
 
 ```bash
 cd backend/BuildMyPcApi
+dotnet ef database update
 dotnet run
 ```
 
-Swagger: http://localhost:5126/swagger
+API: http://localhost:5126 — Swagger: http://localhost:5126/swagger
+
+### 3. Frontend-i
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Faqja: http://localhost:5173
 
 ## Përparimi
+- [x] Hapi 1 — Planifikimi dhe GitHub
 - [x] Hapi 2 — Produkti i parë në ekran
-- [ ] Hapi 3 — Katalogu
-- [ ] Hapi 4 — Login dhe Admin
-- [ ] Hapi 5 — Ndërtuesi i PC-së
-- [ ] Hapi 6 — Konfigurimet dhe porositë
-- [ ] Hapi 7 — Testet dhe Docker
+- [ ] Hapi 3 — Login, signup dhe JWT
+- [ ] Hapi 4 — Paneli Admin
+- [ ] Hapi 5 — Ndërtuesi i PC-së dhe përputhshmëria
+- [ ] Hapi 6 — Porositë dhe stoku
+- [ ] Hapi 7 — Docker Compose

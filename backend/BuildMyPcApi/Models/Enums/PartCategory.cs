@@ -1,5 +1,10 @@
 namespace BuildMyPcApi.Models.Enums;
 
+public enum UserRole
+{
+    User,
+    Admin
+}
 public enum PartCategory
 {
     Procesor,

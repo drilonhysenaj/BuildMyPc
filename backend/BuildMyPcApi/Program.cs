@@ -1,7 +1,8 @@
 using BuildMyPcApi.Database;
 using BuildMyPcApi.Services.Product;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;;
+using Microsoft.OpenApi;
+using BuildMyPcApi.Models.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>

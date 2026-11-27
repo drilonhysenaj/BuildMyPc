@@ -3,6 +3,7 @@ using BuildMyPcApi.Services.Product;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using BuildMyPcApi.Models.Options;
+using BuildMyPcApi.Services.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -32,6 +33,8 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
 
 var connectionString = builder.Configuration.GetConnectionString("BuildMyPcApiDatabase");
 

@@ -1,7 +1,11 @@
 using BuildMyPcApi.Database;
 using BuildMyPcApi.Services.Product;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi;;
+using Microsoft.OpenApi;
+using BuildMyPcApi.Models.Options;
+using BuildMyPcApi.Services.Auth;
+using BuildMyPcApi.Models.Entities;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,7 @@ builder.Services.AddSwaggerGen(c =>
 });
 
 builder.Services.AddControllers();
+builder.Services.Configure<JwtOptions>(builder.Configuration.GetSection("Jwt"));
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -30,6 +35,11 @@ builder.Services.AddCors(options =>
 });
 
 builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<ITokenService, TokenService>();
+
+builder.Services.AddScoped<IPasswordHasher<User>, PasswordHasher<User>>();
+builder.Services.AddScoped<IAuthService, AuthService>();
 
 var connectionString = builder.Configuration.GetConnectionString("BuildMyPcApiDatabase");
 

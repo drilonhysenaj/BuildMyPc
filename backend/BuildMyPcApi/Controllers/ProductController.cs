@@ -3,7 +3,7 @@ using BuildMyPcApi.Services.Product;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BuildMyPcApi.Controllers;
-
+using Microsoft.AspNetCore.Authorization;
 [ApiController]
 [Route("api/products")]
 public class ProductController(IProductService productService) : ControllerBase
@@ -33,6 +33,7 @@ public class ProductController(IProductService productService) : ControllerBase
     /// Shton një produkt të ri.
     /// </summary>
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Create([FromBody] ProductRequestDto dto)
     {
         var created = await productService.CreateAsync(dto);
@@ -43,6 +44,7 @@ public class ProductController(IProductService productService) : ControllerBase
     /// Ndryshon një produkt ekzistues.
     /// </summary>
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, [FromBody] ProductRequestDto dto)
     {
         var updated = await productService.UpdateAsync(id, dto);
@@ -54,7 +56,8 @@ public class ProductController(IProductService productService) : ControllerBase
     /// Çaktivizon një produkt. Produkti s'fshihet nga databaza.
     /// </summary>
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Deactivate(int id)
+    [Authorize(Roles = "Admin")]
+        public async Task<IActionResult> Deactivate(int id)
     {
         var deactivated = await productService.DeactivateAsync(id);
         if (!deactivated) return NotFound();
